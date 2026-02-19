@@ -7,10 +7,6 @@ st.title("Mistral Customer Support Chatbot")
 # ---------- Set API URL ----------
 API_URL = os.environ.get("API_URL")
 
-if not API_URL:
-    st.error("API_URL is not set. Please configure environment variable.")
-    st.stop()
-
 # Helper function
 def send_message(message, task="response", name="Customer"):
     payload = {
