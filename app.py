@@ -1,6 +1,10 @@
+from dotenv import load_dotenv
 import os
 import streamlit as st
 import requests
+
+# Load .env file
+load_dotenv()
 
 st.title("Mistral Customer Support Chatbot")
 

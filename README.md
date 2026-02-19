@@ -1,4 +1,4 @@
-## **Mistral Customer Support Chatbot**
+# **Mistral Customer Support Chatbot**
 
 A demo chatbot that can respond, classify, summarize, extract structured data, and provide personalized answers for customer support queries.
 
@@ -7,14 +7,18 @@ It consists of two main components:
 1. **Flask API (`api.py`)** – handles the chatbot logic and communicates with the Mistral AI backend.
 2. **Streamlit Frontend (`app.py`)** – a user-friendly interface to interact with the chatbot.
 
+---
+
 ## **Live Demo Links**
 
-| Component         | Link                                                                           | Description                                                                                                                  |
-| ----------------- | ------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
-| **API**           | [https://mistral-api.onrender.com](https://mistral-api.onrender.com)           | The backend Flask API. Returns JSON responses for all tasks.                                                                 |
-| **Streamlit App** | [https://mistral-lab-3jmk.onrender.com](https://mistral-lab-3jmk.onrender.com) | The user interface. Interacts with the API to send messages and display results, including pretty JSON for extraction tasks. |
+| Component         | Link                                                                       | Description                                                                                                        |
+| ----------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| **API**           | _Private / internal_                                                       | The backend Flask API returns JSON responses for all tasks. Users normally interact through the frontend.          |
+| **Streamlit App** | [https://mistral-lab-1.onrender.com/](https://mistral-lab-1.onrender.com/) | The user interface. Sends messages to the backend API and displays responses, including JSON for extraction tasks. |
 
-> Note: The frontend automatically calls the API, so you can interact with the chatbot directly from the Streamlit page.
+> ⚠️ Note: The backend API may occasionally be unavailable if the server is down. If you see an error when sending messages, please wait a few minutes and try again.
+
+---
 
 ## **Tasks Supported**
 
@@ -24,104 +28,19 @@ It consists of two main components:
 - **extract** – Extract structured data in JSON (age, gender, diagnosis, weight, smoking).
 - **personalized** – Address users by name in the response.
 
-## **How It’s Deployed**
-
-1. **Backend (Flask API)** – Deployed on **Render**:
-   - The `api.py` file is served using **Gunicorn**.
-   - URL: `https://mistral-api.onrender.com`
-   - Handles POST requests at `/chat`.
-   - Returns JSON responses depending on the selected task.
-
-2. **Frontend (Streamlit App)** – Also deployed on **Render**:
-   - The `app.py` file runs the Streamlit interface.
-   - URL: `https://mistral-lab-3jmk.onrender.com`
-   - Sends user messages to the backend API.
-   - Displays results directly in the UI.
-
-3. **Interaction Flow**:
-   - User types a message in the Streamlit app → App sends request to Flask API → API processes with Mistral AI → Returns JSON → Streamlit displays response.
-
-## **Usage**
-
-1. Open the [Streamlit App](https://mistral-lab-3jmk.onrender.com).
-2. Select a task from the dropdown.
-3. Type your message in the text area.
-4. If task is **personalized**, enter your name.
-5. Click **Send**.
-6. Results will display below the input:
-   - **Extract** task shows structured JSON.
-   - Other tasks show chatbot responses.
-
-## Overview
-
-This project implements a Customer Support Chatbot using:
-
-- **Flask** → Backend API
-- **Streamlit** → Frontend Web Interface
-- **Mistral AI** → Large Language Model for NLP tasks
-
 ---
 
-## What is Flask?
+## **How It Works**
 
-Flask is a lightweight Python web framework used to build APIs.
-
-In this project:
-
-- Flask acts as the backend server
-- It receives user messages from Streamlit
-- It sends prompts to Mistral AI
-- It returns the AI-generated response as JSON
-
-Flask handles the logic, while Streamlit handles the interface.
-
----
-
-## What is Streamlit?
-
-Streamlit is a Python framework for building interactive web apps.
-
-In this project:
-
-- It provides the chatbot interface
-- Users type messages
-- It sends HTTP requests to the Flask API
-- It displays responses in the browser
-
----
-
-## Chatbot Functionalities
-
-The chatbot supports:
-
-1. Classification
-   Categorizes customer inquiries into predefined banking categories.
-
-2. Information Extraction
-   Extracts structured data from medical notes in JSON format.
-
-3. Summarization
-   Generates concise summaries of long text.
-
-4. Personalized Responses
-   Generates responses addressing customers by name with professional tone.
-
-5. General Customer Support
-   Provides professional responses to general queries.
-
----
-
-## How It Works
-
-1. User enters message in Streamlit.
-2. Streamlit sends a POST request to Flask.
-3. Flask selects the correct prompt.
-4. Flask sends the prompt to Mistral AI.
+1. User enters a message in the Streamlit frontend.
+2. Streamlit sends a POST request to the Flask backend API.
+3. Flask selects the appropriate prompt for the task.
+4. Flask sends the prompt to the Mistral AI model.
 5. Mistral generates a response.
 6. Flask returns JSON.
-7. Streamlit displays the result.
+7. Streamlit displays the result in the UI.
 
-# System Architecture
+**System Architecture:**
 
 ```
 User (Streamlit UI)
@@ -137,146 +56,106 @@ JSON Response
 Displayed in Streamlit
 ```
 
-# Project Structure
+---
+
+## **Project Structure**
 
 ```
-Streamlit_Lab/
+Mistral_Lab/
 │
-├── api.py # Flask backend
-├── app.py # Streamlit frontend
-├── helper.py # Mistral API logic
-├── .env # API key (not pushed to GitHub)
+├── api.py          # Flask backend
+├── app.py          # Streamlit frontend
+├── helper.py       # Mistral API logic
+├── .env.example    # Example environment variables
 ├── requirements.txt
 └── README.md
 ```
 
-# Setup Instructions
+> **Note:** Do **not** commit your `.env` with real API keys. Use `.env.example` as a template.
 
-## 1. Install Dependencies
+---
 
-Inside your project folder:
+## **.env.example**
 
-pip install -r requirements.txt
-
-## 2. Add Your Mistral API Key
-
-Create a `.env` file:
-
+```toml
+# Copy this file to .env and fill in your credentials
 MISTRAL_API_KEY=your_api_key_here
-
-## 3. Run the Flask Backend
-
-Open Terminal 1:
-
+API_URL=http://127.0.0.1:5000/chat
 ```
 
+> **Important:** The `API_URL` should point to your locally running backend (`http://127.0.0.1:5000/chat`) for local testing.
+
+---
+
+## **Setup Instructions (Local Testing)**
+
+1. Clone the repo.
+2. Copy `.env.example` to `.env`:
+
+```bash
+cp .env.example .env   # Linux / Mac
+copy .env.example .env # Windows
+```
+
+3. Add your Mistral API key in `.env`.
+4. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+5. **Run the Flask backend** (required for frontend to work locally):
+
+```bash
 python api.py
-
 ```
 
-You should see:
+> ⚠️ **Important:** If you don’t start the backend locally, the Streamlit frontend will **not work**, because it depends on the API to generate responses.
 
-```
+6. **Run the Streamlit frontend**:
 
-Running on [http://127.0.0.1:5000](http://127.0.0.1:5000)
-
-```
-
-⚠️ Do NOT open port 5000 in the browser.
-This is an API endpoint.
-
----
-
-## 4. Run the Streamlit Frontend
-
-Open Terminal 2:
-
-```
-
+```bash
 streamlit run app.py
-
 ```
 
-Open in browser:
-
-```
-
-[http://localhost:8501](http://localhost:8501)
-
-```
-
-This is your chatbot interface.
+7. Open [http://localhost:8501](http://localhost:8501) to use the chatbot.
 
 ---
 
-# Chatbot Features
+## **Online Usage**
 
-The dropdown menu includes:
+- The frontend app hosted at Render connects to the backend API.
+- If the Render backend goes down, the app will show an error:
 
-### 1️⃣ Classification
+```
+"The backend API is currently unavailable. Please try again in a few minutes."
+```
 
-Classifies bank customer queries into:
+---
 
-- card arrival
-- change pin
-- exchange rate
-- country support
-- cancel transfer
-- charge dispute
-- customer service
+## **Chatbot Features**
 
-### 2️⃣ Personalized Response
+- **Classification** – Categorizes customer queries (e.g., card arrival, change pin, exchange rate, cancel transfer).
+- **Personalized Responses** – Generates responses addressing users by name.
+- **Summarization** – Summarizes long messages into concise text.
+- **Information Extraction** – Extracts structured JSON data from text.
 
-Generates a professional response to a customer inquiry.
+---
 
-### 3️⃣ Summarization
+## **Important Notes**
 
-Summarizes long text into a concise summary.
+- Local backend port: **5000**
+- Frontend port: **8501**
+- Never commit your API keys or secrets to GitHub.
+- If the backend is down (locally or online), the frontend cannot process messages.
 
-### 4️⃣ Information Extraction
+---
 
-Extracts structured data (JSON format) from medical notes.
+## **Optional Improvements**
 
-# How Flask Works
+- Add chat memory to maintain conversation context.
+- Create chat-style UI bubbles in Streamlit.
+- Combine classification + automated responses.
+- Deploy backend and frontend on a cloud platform (Render, Railway, or Streamlit Cloud).
 
-Flask acts as the backend server.
-
-It:
-
-- Receives user message from Streamlit
-- Builds the appropriate prompt
-- Sends request to Mistral
-- Returns the generated response as JSON
-
-Flask exposes an endpoint:
-
-POST /chat
-
-Example JSON request:
-
-{
-"message": "I lost my card",
-"task": "classification"
-}
-
-# How Streamlit Works
-
-Streamlit:
-
-- Provides a user-friendly interface
-- Sends HTTP requests to Flask
-- Displays chatbot responses in real-time
-
-# Important Notes
-
-- Port 5000 → Flask API (backend)
-- Port 8501 → Streamlit UI (chatbot)
-- 404 on port 5000 is NORMAL
-- Always open port 8501 to use the chatbot
-
-# Optional Improvements
-
-- Add chat memory
-- Add chat-style UI bubbles
-- Add automatic classification + response
-- Deploy to Render / Railway / Streamlit Cloud
+---
