@@ -1,12 +1,17 @@
+import os
 import streamlit as st
 import requests
 
 st.title("Mistral Customer Support Chatbot")
 
 # ---------- Set API URL ----------
-API_URL = "https://mistral-api.onrender.com/chat"
+API_URL = os.environ.get("API_URL")
 
-# Helper function to send messages
+if not API_URL:
+    st.error("API_URL is not set. Please configure environment variable.")
+    st.stop()
+
+# Helper function
 def send_message(message, task="response", name="Customer"):
     payload = {
         "message": message,
@@ -16,7 +21,7 @@ def send_message(message, task="response", name="Customer"):
     response = requests.post(API_URL, json=payload)
     return response.json()
 
-# ---------- Streamlit UI ----------
+# ---------- UI ----------
 task = st.selectbox(
     "Select task",
     ["response", "classification", "summarize", "extract", "personalized"]
@@ -32,11 +37,10 @@ if st.button("Send"):
 
     if user_input:
         try:
-            # Use the helper function here
             data = send_message(user_input, task, user_name)
 
             if task == "extract":
-                st.json(data)   # Pretty JSON output
+                st.json(data)
             else:
                 st.markdown(f"**Chatbot ({task}):** {data['response']}")
 
