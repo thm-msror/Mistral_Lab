@@ -24,15 +24,25 @@ if st.button("Send"):
             "name": user_name
         }
 
-        response = requests.post(
-            "http://localhost:5000/chat",
-            json=payload
-        )
+        try:
+            response = requests.post(
+                "http://localhost:5000/chat",
+                json=payload
+            )
 
-        if response.status_code == 200:
-            st.markdown(f"**Chatbot ({task}):** {response.json()['response']}")
-        else:
-            st.error("Error communicating with API")
+            if response.status_code == 200:
+                data = response.json()
+
+                if task == "extract":
+                    st.json(data)   # Pretty JSON output
+                else:
+                    st.markdown(f"**Chatbot ({task}):** {data['response']}")
+
+            else:
+                st.error("Error communicating with API")
+
+        except Exception as e:
+            st.error(f"Connection error: {e}")
 
     else:
         st.warning("Please type a message!")
