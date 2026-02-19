@@ -1,21 +1,73 @@
 # Mistral Customer Support Chatbot
 
-This lab project demonstrates how to build and deploy a Customer Support Chatbot using Mistral AI.
+## Overview
 
-The chatbot performs the following NLP tasks:
+This project implements a Customer Support Chatbot using:
 
-- Classification of customer inquiries
-- Information extraction (JSON structured output)
-- Summarization of text
-- Personalized response generation
-
-The system uses:
-
-- Flask (Backend API)
-- Streamlit (Frontend Web Interface)
-- Mistral AI (Large Language Model)
+- **Flask** → Backend API
+- **Streamlit** → Frontend Web Interface
+- **Mistral AI** → Large Language Model for NLP tasks
 
 ---
+
+## What is Flask?
+
+Flask is a lightweight Python web framework used to build APIs.
+
+In this project:
+
+- Flask acts as the backend server
+- It receives user messages from Streamlit
+- It sends prompts to Mistral AI
+- It returns the AI-generated response as JSON
+
+Flask handles the logic, while Streamlit handles the interface.
+
+---
+
+## What is Streamlit?
+
+Streamlit is a Python framework for building interactive web apps.
+
+In this project:
+
+- It provides the chatbot interface
+- Users type messages
+- It sends HTTP requests to the Flask API
+- It displays responses in the browser
+
+---
+
+## Chatbot Functionalities
+
+The chatbot supports:
+
+1. Classification
+   Categorizes customer inquiries into predefined banking categories.
+
+2. Information Extraction
+   Extracts structured data from medical notes in JSON format.
+
+3. Summarization
+   Generates concise summaries of long text.
+
+4. Personalized Responses
+   Generates responses addressing customers by name with professional tone.
+
+5. General Customer Support
+   Provides professional responses to general queries.
+
+---
+
+## How It Works
+
+1. User enters message in Streamlit.
+2. Streamlit sends a POST request to Flask.
+3. Flask selects the correct prompt.
+4. Flask sends the prompt to Mistral AI.
+5. Mistral generates a response.
+6. Flask returns JSON.
+7. Streamlit displays the result.
 
 # System Architecture
 

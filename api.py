@@ -13,6 +13,7 @@ def chat():
         data = request.get_json()
         user_message = data.get("message")
         task = data.get("task", "response")
+        user_name = data.get("name", "Customer")
 
         if task == "classification":
 
@@ -62,6 +63,23 @@ Return json format with the following JSON schema:
 Summarize the following text clearly and concisely:
 
 {user_message}
+"""
+
+        elif task == "personalized":
+
+            prompt = f"""
+You are a professional bank customer support assistant.
+
+Address the customer by their name: {user_name}
+
+Respond to their inquiry clearly, professionally, and in a friendly tone.
+Provide helpful information and close politely.
+
+Customer Inquiry:
+{user_message}
+
+Sign the message as:
+Bank Customer Support
 """
 
         else:  # response
