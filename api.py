@@ -1,3 +1,6 @@
+from flask_cors import CORS
+CORS(app)
+
 from flask import Flask, request, jsonify
 from helper import mistral
 import json
@@ -127,4 +130,5 @@ Respond professionally and clearly:
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=False)
+    app.run(host="0.0.0.0", port=10000)
+
