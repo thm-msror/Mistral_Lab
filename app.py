@@ -3,6 +3,20 @@ import requests
 
 st.title("Mistral Customer Support Chatbot")
 
+# ---------- Set API URL ----------
+API_URL = "https://mistral-api.onrender.com/chat"
+
+# Helper function to send messages
+def send_message(message, task="response", name="Customer"):
+    payload = {
+        "message": message,
+        "task": task,
+        "name": name
+    }
+    response = requests.post(API_URL, json=payload)
+    return response.json()
+
+# ---------- Streamlit UI ----------
 task = st.selectbox(
     "Select task",
     ["response", "classification", "summarize", "extract", "personalized"]
@@ -17,29 +31,14 @@ user_input = st.text_area("Type your message here:")
 if st.button("Send"):
 
     if user_input:
-
-        payload = {
-            "message": user_input,
-            "task": task,
-            "name": user_name
-        }
-
         try:
-            response = requests.post(
-                "http://localhost:5000/chat",
-                json=payload
-            )
+            # Use the helper function here
+            data = send_message(user_input, task, user_name)
 
-            if response.status_code == 200:
-                data = response.json()
-
-                if task == "extract":
-                    st.json(data)   # Pretty JSON output
-                else:
-                    st.markdown(f"**Chatbot ({task}):** {data['response']}")
-
+            if task == "extract":
+                st.json(data)   # Pretty JSON output
             else:
-                st.error("Error communicating with API")
+                st.markdown(f"**Chatbot ({task}):** {data['response']}")
 
         except Exception as e:
             st.error(f"Connection error: {e}")

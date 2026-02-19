@@ -1,4 +1,56 @@
-# Mistral Customer Support Chatbot
+## **Mistral Customer Support Chatbot**
+
+A demo chatbot that can respond, classify, summarize, extract structured data, and provide personalized answers for customer support queries.
+
+It consists of two main components:
+
+1. **Flask API (`api.py`)** – handles the chatbot logic and communicates with the Mistral AI backend.
+2. **Streamlit Frontend (`app.py`)** – a user-friendly interface to interact with the chatbot.
+
+## **Live Demo Links**
+
+| Component         | Link                                                                           | Description                                                                                                                  |
+| ----------------- | ------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| **API**           | [https://mistral-api.onrender.com](https://mistral-api.onrender.com)           | The backend Flask API. Returns JSON responses for all tasks.                                                                 |
+| **Streamlit App** | [https://mistral-lab-3jmk.onrender.com](https://mistral-lab-3jmk.onrender.com) | The user interface. Interacts with the API to send messages and display results, including pretty JSON for extraction tasks. |
+
+> Note: The frontend automatically calls the API, so you can interact with the chatbot directly from the Streamlit page.
+
+## **Tasks Supported**
+
+- **response** – General conversational response.
+- **classification** – Categorize customer queries.
+- **summarize** – Summarize long text.
+- **extract** – Extract structured data in JSON (age, gender, diagnosis, weight, smoking).
+- **personalized** – Address users by name in the response.
+
+## **How It’s Deployed**
+
+1. **Backend (Flask API)** – Deployed on **Render**:
+   - The `api.py` file is served using **Gunicorn**.
+   - URL: `https://mistral-api.onrender.com`
+   - Handles POST requests at `/chat`.
+   - Returns JSON responses depending on the selected task.
+
+2. **Frontend (Streamlit App)** – Also deployed on **Render**:
+   - The `app.py` file runs the Streamlit interface.
+   - URL: `https://mistral-lab-3jmk.onrender.com`
+   - Sends user messages to the backend API.
+   - Displays results directly in the UI.
+
+3. **Interaction Flow**:
+   - User types a message in the Streamlit app → App sends request to Flask API → API processes with Mistral AI → Returns JSON → Streamlit displays response.
+
+## **Usage**
+
+1. Open the [Streamlit App](https://mistral-lab-3jmk.onrender.com).
+2. Select a task from the dropdown.
+3. Type your message in the text area.
+4. If task is **personalized**, enter your name.
+5. Click **Send**.
+6. Results will display below the input:
+   - **Extract** task shows structured JSON.
+   - Other tasks show chatbot responses.
 
 ## Overview
 
