@@ -1,11 +1,11 @@
-from flask_cors import CORS
-CORS(app)
-
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from helper import mistral
 import json
+import os
 
 app = Flask(__name__)
+CORS(app)   # ✅ Now app exists
 
 @app.route("/")
 def home():
