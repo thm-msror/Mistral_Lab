@@ -4,12 +4,10 @@ import requests
 st.title("Mistral Customer Support Chatbot")
 
 # ---------- Set API URL ----------
-API_URL = st.secrets["API_URL"]  # Streamlit will pick up Render secrets automatically
-
-st.write("API URL:", API_URL)
+API_URL = st.secrets["API_URL"]
 
 if not API_URL:
-    st.error("API_URL is not set. Please configure environment variable.")
+    st.error("API_URL is not set. Please configure Streamlit Secrets.")
     st.stop()
 
 # Helper function
@@ -35,6 +33,7 @@ if task == "personalized":
 user_input = st.text_area("Type your message here:")
 
 if st.button("Send"):
+
     if user_input:
         try:
             data = send_message(user_input, task, user_name)
